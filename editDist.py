@@ -4,7 +4,7 @@ import sys
 def edit_distance(x, y, memo=None):
 
     if memo is None:
-        memo = [[0 for _ in range(len(y) + 1)] for _ in range(len(x) + 1)]
+        memo = [[0 for _ in range(len(y)+1)] for _ in range(len(x)+1)]
 
     # initialize first row and column
     for i in range(1, len(y)+1):
@@ -17,9 +17,9 @@ def edit_distance(x, y, memo=None):
         for j in range(1, len(y)+1):
             delta = 1 if x[i-1] != y[j-1] else 0
             memo[i][j] = min(
-                memo[i - 1][j - 1] + delta,
-                memo[i - 1][j] + 1,
-                memo[i][j - 1] + 1
+                memo[i-1][j-1] + delta,
+                memo[i-1][j] + 1,
+                memo[i][j-1] + 1
             )
 
     return memo[len(x)][len(y)], memo
@@ -38,7 +38,7 @@ def optimal_alignment(x, y, memo):
 
         # precedence: diagonal > left > above
         if diag <= left and diag <= abov:
-            curr = 'M' if x[i - 1] == y[j - 1] else 'R'
+            curr = 'M' if x[i-1] == y[j-1] else 'R'
         else:
             curr = 'I' if left <= abov else 'D'
 
@@ -75,7 +75,7 @@ def print_alignment(x, y, alignment):
             new_alignment += ' '
             y = y[:j] + '-' + y[j:]
 
-        i, j = i + 1, j + 1
+        i, j = i+1, j+1
 
     return x, y, new_alignment
 
